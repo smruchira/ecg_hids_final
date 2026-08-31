@@ -1,0 +1,16 @@
+[Unit]
+Description=ECG HIDS orchestrator
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=simple
+User=chega
+WorkingDirectory=/home/chega/HIDS/edge
+EnvironmentFile=/home/chega/HIDS/rpi/hids.env
+ExecStart=/home/chega/HIDS/edge/.venv/bin/python /home/chega/HIDS/edge/orchestrator.py
+Restart=always
+RestartSec=5
+
+[Install]
+WantedBy=multi-user.target

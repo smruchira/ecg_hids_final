@@ -12,6 +12,7 @@ fields via feature_extractor.py before logging.
 
 import json
 import hashlib
+from pathlib import Path
 import numpy as np
 from datetime import datetime, timezone
 
@@ -80,5 +81,6 @@ def make_log_entry(patient_info, raw_window, features, source="synthetic", label
 def write_log_entry(entry, path=None):
     """Appends one JSON line to the full log file."""
     path = path or config.FULL_LOG_PATH
+    Path(path).parent.mkdir(parents=True, exist_ok=True)
     with open(path, "a") as f:
         f.write(json.dumps(entry) + "\n")
